@@ -52,11 +52,8 @@ export class CommentLikesService {
       user.userId,
     );
 
-    // Если лайк/дизлайк уже существует
     if (existingLike) {
-      // Если текущее действие отличается от существующего
       if (existingLike.is_like !== isLike) {
-        // Обновляем существующий лайк
         existingLike.is_like = isLike;
         return this.commentLikeRepository.save(existingLike);
       }
@@ -66,7 +63,6 @@ export class CommentLikesService {
       );
     }
 
-    // Создаем новый лайк/дизлайк
     const like = this.commentLikeRepository.create({
       comment,
       user: { id: user.userId },
@@ -75,7 +71,6 @@ export class CommentLikesService {
 
     await this.commentLikeRepository.save(like);
 
-    // Обновляем счетчик лайков
     comment.like_count += isLike ? 1 : -1;
     await this.commentRepository.save(comment);
 
@@ -94,7 +89,6 @@ export class CommentLikesService {
 
     await this.commentLikeRepository.remove(existingLike);
 
-    // Уменьшаем счетчик лайков
     comment.like_count -= existingLike.is_like ? 1 : -1;
     await this.commentRepository.save(comment);
   }

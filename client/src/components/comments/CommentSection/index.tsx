@@ -2,9 +2,6 @@
 
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-// import { commentsService } from "@/services/comments-service"
-// import { CommentForm } from "./comment-form"
-// import { CommentItem } from "./comment-item"
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useAuthStore } from '@/hooks/use-auth';
@@ -33,36 +30,12 @@ export function CommentSection({ postSlug }: CommentSectionProps) {
     },
   });
 
-  //   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, refetch } = useInfiniteQuery({
-  //     queryKey: ["comments", postSlug],
-  //     queryFn: ({ pageParam = 1 }) =>
-  //       commentsService.getCommentsByPostSlug(postSlug, {
-  //         page: pageParam,
-  //         limit: 10,
-  //         sortOrder: "DESC",
-  //       }),
-  //     getNextPageParam: (lastPage) => {
-  //       const { currentPage, totalPages } = lastPage.metadata
-  //       return currentPage < totalPages ? currentPage + 1 : undefined
-  //     },
-  //     onSuccess: (data) => {
-  //       const totalCount = data.pages[0]?.metadata.totalCount || 0
-  //       setCommentCount(totalCount)
-  //     },
-  //     onError: () => {
-  //       toast({
-  //         title: "Error",
-  //         description: "Failed to load comments. Please try again.",
-  //         variant: "destructive",
-  //       })
-  //     },
-  //   })
+
 
   const handleCommentAdded = () => {
     setCommentCount((prev) => prev + 1);
   };
 
-  //   const comments = data?.pages.flatMap((page) => page.data) || []
 
   return (
     <div className="space-y-6" id="comments">

@@ -1,5 +1,3 @@
-// import { CategoryFilter } from "@/components/posts/category-filter"
-// import { SearchBar } from "@/components/posts/search-bar"
 
 import { CategoryFilter } from '@/components/posts/CategoryFilter';
 import { PostList } from '@/components/posts/PostList';
