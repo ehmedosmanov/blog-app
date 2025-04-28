@@ -11,7 +11,7 @@ const nextConfig = {
         protocol: 'https', 
         hostname: 'blog-app-production-b40c.up.railway.app',
         port: '',
-        pathname: '/api/uploads/**', 
+        pathname: '/uploads/**', 
       },
 
     ],
