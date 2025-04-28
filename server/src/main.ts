@@ -54,10 +54,6 @@ async function bootstrap() {
 
   const PORT = configService.get('PORT') || 8000;
 
-  const isProduction = configService.get('NODE_ENV') === 'production';
-
-  const host = isProduction ? '0.0.0.0' : 'localhost';
-
-  await app.listen(PORT, host);
+  await app.listen(PORT, '0.0.0.0');
 }
 bootstrap();

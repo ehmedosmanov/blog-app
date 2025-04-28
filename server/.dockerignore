@@ -4,3 +4,4 @@ pgdata/
 pgadmin_data/
 npm-debug.log
 *.log
+Dockerfile.dev

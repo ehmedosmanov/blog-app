@@ -7,6 +7,7 @@ import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { CommentLikesModule } from './comment-likes/comment-likes.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -35,5 +36,6 @@ import { CommentLikesModule } from './comment-likes/comment-likes.module';
     CommentsModule,
     CommentLikesModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
