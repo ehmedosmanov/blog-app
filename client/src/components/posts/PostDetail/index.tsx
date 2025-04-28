@@ -163,7 +163,7 @@ export function PostDetail({ slug }: PostDetailProps) {
       {postData.imageUrl && (
         <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
           <Image
-            src={postData.imageUrl || '/placeholder.svg'}
+            src={postData.imageUrl}
             alt={postData.title}
             fill
             className="object-cover"

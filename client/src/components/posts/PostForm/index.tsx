@@ -1,8 +1,5 @@
 'use client';
-
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -47,7 +44,9 @@ interface PostFormProps {
 export function PostForm({ slug, isEditing = false }: PostFormProps) {
   const router = useRouter();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+
   const form = useForm<PostFormValues>({
     resolver: zodResolver(postSchema),
     defaultValues: {
@@ -127,10 +126,21 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
+        form.setValue('file', e.target.files);
       };
       reader.readAsDataURL(file);
     } else {
       setImagePreview(null);
+      form.setValue('file', undefined);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    form.setValue('file', undefined);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
@@ -210,7 +220,7 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
         <FormField
           control={form.control}
           name="file"
-          render={({ field: { onChange, ...fieldProps } }) => (
+          render={({ field: { onChange } }) => (
             <FormItem>
               <FormLabel>Featured Image</FormLabel>
               <FormControl>
@@ -219,15 +229,12 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() =>
-                        document.getElementById('image-upload')?.click()
-                      }
+                      onClick={() => fileInputRef.current?.click()}
                       className="flex items-center gap-2">
                       <ImagePlus className="h-4 w-4" />
                       {isEditing ? 'Change Image' : 'Upload Image'}
                     </Button>
                     <Input
-                      id="image-upload"
                       type="file"
                       accept="image/*"
                       className="hidden"
@@ -235,17 +242,14 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
                         onChange(e.target.files);
                         handleImageChange(e);
                       }}
-                      {...fieldProps}
+                      ref={fileInputRef}
                     />
                     {imagePreview && (
                       <Button
                         type="button"
                         variant="destructive"
                         size="sm"
-                        onClick={() => {
-                          setImagePreview(null);
-                          onChange(null);
-                        }}>
+                        onClick={handleRemoveImage}>
                         Remove Image
                       </Button>
                     )}
@@ -253,7 +257,7 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
                   {imagePreview && (
                     <div className="relative h-[200px] w-full rounded-md overflow-hidden border">
                       <img
-                        src={imagePreview || '/placeholder.svg'}
+                        src={imagePreview}
                         alt="Preview"
                         className="object-cover w-full h-full"
                       />
