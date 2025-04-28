@@ -1,7 +1,8 @@
-
 import { CategoryFilter } from '@/components/posts/CategoryFilter';
 import { PostList } from '@/components/posts/PostList';
 import { SearchBar } from '@/components/posts/SearchBar';
+import { Loader2 } from 'lucide-react';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
@@ -19,12 +20,26 @@ export default function Home() {
         <div className="md:w-1/4">
           <div className="sticky top-20 space-y-6">
             <SearchBar />
-            <CategoryFilter />
+            <Suspense
+              fallback={
+                <div className="flex justify-center py-10">
+                  <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                </div>
+              }>
+              <CategoryFilter />
+            </Suspense>
           </div>
         </div>
 
         <div className="md:w-3/4">
-          <PostList />
+          <Suspense
+            fallback={
+              <div className="flex justify-center py-10">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              </div>
+            }>
+            <PostList />
+          </Suspense>
         </div>
       </div>
     </div>
