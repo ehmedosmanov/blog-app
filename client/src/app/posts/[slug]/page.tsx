@@ -4,13 +4,11 @@ import { PostDetail } from '@/components/posts/PostDetail';
 import { CommentSection } from '@/components/comments/CommentSection';
 import { postsService } from '@/services/posts';
 
-type Params = {
-  slug: string;
-};
+type Params = Promise<{ slug: string }>;
 
 export async function generateMetadata({ params }: { params: Params }) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
 
     const post = await postsService.getPostBySlug(slug);
 
@@ -27,7 +25,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 }
 
 export default async function PostPage({ params }: { params: Params }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   return (
     <div className="space-y-8">
