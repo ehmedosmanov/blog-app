@@ -9,10 +9,10 @@ export default function Home() {
     <div className="space-y-8">
       <section className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">
-          Welcome to the Blog
+          Welcome to the Blog App
         </h1>
         <p className="text-muted-foreground text-lg">
-          Discover interesting articles and share your thoughts
+         Interesting Blogs
         </p>
       </section>
 
