@@ -52,10 +52,10 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const PORT = configService.get('PORT') || 8000;
+  const PORT =
+    parseInt(process.env.PORT, 10) || configService.get<number>('PORT') || 8000;
 
-  
-  await app.listen(PORT);
+  await app.listen(PORT, '0.0.0.0');
   console.log(`App is running on port ${PORT}`);
 }
 bootstrap();
