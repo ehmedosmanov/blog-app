@@ -43,6 +43,7 @@ export function RegisterForm() {
       await register(data.name, data.surname, data.email, data.password);
       router.push('/')
     } catch (error) {
+      console.log(error)
     } finally {
       setIsLoading(false);
     }

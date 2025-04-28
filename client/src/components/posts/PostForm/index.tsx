@@ -73,6 +73,7 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
       }
     },
     onError: (error: Error) => {
+      console.log(error);
       toast.error('Operation failed, Please try again');
       router.push('/');
     },
@@ -209,7 +210,7 @@ export function PostForm({ slug, isEditing = false }: PostFormProps) {
         <FormField
           control={form.control}
           name="file"
-          render={({ field: { value, onChange, ...fieldProps } }) => (
+          render={({ field: { onChange, ...fieldProps } }) => (
             <FormItem>
               <FormLabel>Featured Image</FormLabel>
               <FormControl>

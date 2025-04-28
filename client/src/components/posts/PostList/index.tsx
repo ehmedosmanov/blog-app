@@ -62,7 +62,7 @@ export function PostList() {
       });
       return response;
     },
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage) => {
       const metadata = lastPage.metadata;
       return metadata.currentPage < metadata.totalPages
         ? metadata.currentPage + 1

@@ -4,18 +4,20 @@ import { PostDetail } from '@/components/posts/PostDetail';
 import { CommentSection } from '@/components/comments/CommentSection';
 import { postsService } from '@/services/posts';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+type Params = {
+  slug: string;
+};
+
+export async function generateMetadata({ params }: { params: Params }) {
   try {
-    const { slug } = await params;
+    const { slug } = params;
 
     const post = await postsService.getPostBySlug(slug);
+
     return {
-      title: post?.data.title,
-      description: post?.data.content.slice(0, 160),
+      title: post?.data.title || 'Post',
+      description:
+        post?.data.content.slice(0, 160) || 'No description available',
     };
   } catch {
     return {
@@ -24,10 +26,8 @@ export async function generateMetadata({
   }
 }
 
-type Params = Promise<{ slug: string }>;
-
 export default async function PostPage({ params }: { params: Params }) {
-  const { slug } = await params;
+  const { slug } = params;
 
   return (
     <div className="space-y-8">

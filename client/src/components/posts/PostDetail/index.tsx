@@ -75,7 +75,7 @@ export function PostDetail({ slug }: PostDetailProps) {
         <AlertCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
         <h2 className="text-2xl font-bold mb-2">Post Not Found</h2>
         <p className="text-muted-foreground mb-6">
-          The post you're looking for doesn't exist or has been removed.
+          The post you are looking for does not exist or has been removed.
         </p>
         <Button asChild>
           <Link href="/">Back to Home</Link>
